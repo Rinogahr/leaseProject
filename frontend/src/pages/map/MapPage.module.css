@@ -1,0 +1,23 @@
+.containerMap{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.googleMapCt{
+    border: solid 1px rebeccapurple;
+    width: 50vw;
+    height: 50vh;
+}
+
+.mapCombobox{
+    background-color: #fafafa;
+    width: 100vw;
+    height: 100vh;
+}
+.mapMaker{
+    color: red;
+    font-size: 10vw;
+}
