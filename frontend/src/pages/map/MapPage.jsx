@@ -16,7 +16,11 @@ function MapPage() {
     return (
       <div className={myStyle.containerMap}>
         <div className={myStyle.mapCombobox}>
-          
+          <div className={myStyle.campos}>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+          </div>
         </div>
         <div className={myStyle.googleMapCt}>
           {
