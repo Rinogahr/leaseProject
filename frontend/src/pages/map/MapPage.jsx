@@ -1,7 +1,7 @@
 import React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import myStyle from './MapPage.module.css';
-import InputSplitRpm from "./components/InputSplitRpm/InputSplitRpm.jsx";
+import InputSplitRpm from '../../componentsrpm/InputSplitRpm/InputSplitRpm';
 
 let possition = {
   lat: -8.123310367996895, 
@@ -19,7 +19,10 @@ function MapPage() {
       <div className={myStyle.containerMap}>
         <div className={myStyle.mapCombobox}>
           <div className={myStyle.campos}>
-            <div>1</div>
+            <div>
+              <InputSplitRpm 
+              txtLabel="Infome o primeiro endereço"/>
+            </div>
             <div>2</div>
             <div>3</div>
           </div>
