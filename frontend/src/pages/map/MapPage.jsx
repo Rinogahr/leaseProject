@@ -1,11 +1,13 @@
 import React from "react";
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import myStyle from './MapPage.module.css';
+import InputSplitRpm from "./components/InputSplitRpm/InputSplitRpm.jsx";
 
 let possition = {
   lat: -8.123310367996895, 
   lng: -34.95778608613493
 }
+
 function MapPage() {
 
   const { isLoaded } = useJsApiLoader({
