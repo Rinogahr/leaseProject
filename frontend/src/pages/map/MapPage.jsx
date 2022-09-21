@@ -20,11 +20,44 @@ function MapPage() {
         <div className={myStyle.mapCombobox}>
           <div className={myStyle.campos}>
             <div>
-              <InputSplitRpm 
-              txtLabel="Infome o primeiro endereço"/>
+              {/* <InputSplitRpm 
+              txtLabel="Infome o primeiro endereço"/> */}
+              <input
+                type="text"
+                id="username"
+                // className={styleimput.textInput}
+                autoComplete="off"
+                placeholder="Informe o primeiro CEP"
+                // onChange={onChange}
+                value="dsdsd"
+              />
             </div>
-            <div>2</div>
-            <div>3</div>
+            <div>
+              {/* <InputSplitRpm 
+              txtLabel="Infome o primeiro endereço"/> */}
+              <input
+                type="text"
+                id="username"
+                // className={styleimput.textInput}
+                autoComplete="off"
+                placeholder="Informe o segundo CEP"
+                // onChange={onChange}
+                value="dsdsd"
+              />
+            </div>
+            <div>
+              {/* <InputSplitRpm 
+              txtLabel="Infome o primeiro endereço"/> */}
+              <input
+                type="text"
+                id="username"
+                // className={styleimput.textInput}
+                autoComplete="off"
+                placeholder="Informe o terceiro CEP"
+                // onChange={onChange}
+                value="dsdsd"
+              />
+            </div>
           </div>
         </div>
         <div className={myStyle.googleMapCt}>
