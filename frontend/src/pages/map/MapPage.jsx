@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import myStyle from './MapPage.module.css';
-import InputSplitRpm from '../../componentsrpm/InputSplitRpm/InputSplitRpm';
+// import InputSplitRpm from '../../componentsrpm/InputSplitRpm/InputSplitRpm';
 
-let possition = {
-  lat: -8.123310367996895, 
-  lng: -34.95778608613493
-}
+// let possition = {
+//   lat: -8.123310367996895, 
+//   lng: -34.95778608613493
+// }
 
 function MapPage() {
+
+  const [position, setPosition ] = useState({
+    lat: -8.123310367996895, 
+    lng: -34.95778608613493
+  });
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -43,10 +48,8 @@ function MapPage() {
                 </div>
                  
               </div>
-              <div className={myStyle.childrenLeftButton}>
-                <div className={myStyle.textBox}>
-                    <a href="#" className={myStyle.btn} class="btn btn-white btn-animate">Consultar</a>
-                </div>
+              <div className={myStyle.wrap}>
+                <button className={myStyle.button} onClick={Pesquisar}>Pesquisar</button>
               </div>
             </div>
           </div>
@@ -63,11 +66,11 @@ function MapPage() {
             isLoaded ? (
               <GoogleMap
                 mapContainerStyle={{width: '100%', height: '100%'}}
-                center={possition}
+                center={position}
                 zoom={20}
               >
                 <Marker
-                position={possition}
+                position={position}
                 options={{
                   label: {
                     text: "Possição Teste",
@@ -81,60 +84,16 @@ function MapPage() {
         </div>
       </div>
     );
-
-    // return (
-    //   <div className={myStyle.containerMap}>
-    //     <div className={myStyle.mapCombobox}>
-    //       <div className={myStyle.campos}>
-    //         <div>
-    //           {/* <InputSplitRpm 
-    //           txtLabel="Infome o primeiro endereço"/> */}
-    //           <input
-    //             type="text"
-    //             id="username"
-    //             // className={styleimput.textInput}
-    //             autoComplete="off"
-    //             placeholder="Informe o primeiro CEP"
-    //             // onChange={onChange}
-    //             value="dsdsd"
-    //           />
-    //         </div>
-    //         <div>
-    //           {/* <InputSplitRpm 
-    //           txtLabel="Infome o primeiro endereço"/> */}
-    //           <input
-    //             type="text"
-    //             id="username"
-    //             // className={styleimput.textInput}
-    //             autoComplete="off"
-    //             placeholder="Informe o segundo CEP"
-    //             // onChange={onChange}
-    //             value="dsdsd"
-    //           />
-    //         </div>
-    //         <div>
-    //           {/* <InputSplitRpm 
-    //           txtLabel="Infome o primeiro endereço"/> */}
-    //           <input
-    //             type="text"
-    //             id="username"
-    //             // className={styleimput.textInput}
-    //             autoComplete="off"
-    //             placeholder="Informe o terceiro CEP"
-    //             // onChange={onChange}
-    //             value="dsdsd"
-    //           />
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className={myStyle.googleMapCt}>
-    //       
-    //     </div>
-    //   </div>
-    // );
   }
   
-
+function Pesquisar(){
+  let cep1 = document.getElementById("cep1").value;
+  let cep2 = document.getElementById("cep2").value;
+  let cep3 = document.getElementById("cep3").value;
+  // axios.get(`https://nominatim.openstreetmap.org/search.php?postalcode=${cep1}&format=jsonv2`).then(resp => {
+  //     resp.data;
+  // });
+}
 
 
 export default MapPage;
