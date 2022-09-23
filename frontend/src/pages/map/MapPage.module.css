@@ -253,6 +253,20 @@
     }
   }
 
+.containerTable{
+    width: 100%;
+}
+.table{
+    width: 100%;
+}
+.table tr{
+    background-color: #fafafa;
+    text-align: center;
+    font-size: 15px;
+}
+.table tr td{
+    border: solid 1px #31d6a5;
+}
 
 .childrenLeftContainerDois{
     height: 50vh;
