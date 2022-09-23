@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import myStyle from './MapPage.module.css';
 // import InputSplitRpm from '../../componentsrpm/InputSplitRpm/InputSplitRpm';
@@ -9,21 +9,24 @@ import myStyle from './MapPage.module.css';
 // }
 
 function MapPage() {
-  const [lat, setLat] = useState(-0);
-  const [lng, setLng] = useState(-0);
   
   const [position, setPosition ] = useState({
-    lat: lat, 
-    lng: lng
+    lat: -0, 
+    lng: -0
   });
 
 
   const [enderecoPrincipal, setEnderecoPrincipal ] = useState({});
+  const [enderecoSecundario, setEnderecoSecundario ] = useState({});
+  const [terceiroEndereco, setTerceiroEndereco ] = useState({});
+  const [txtMaker , setTxtMaker] = useState('você está aqui');
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: "AIzaSyB5s0fRbWRykQG2ud_ygzzZEXGaxY1rpns"
   });
+
+  
 
 
     return(
@@ -65,27 +68,17 @@ function MapPage() {
                 <div className={myStyle.containerTable}>
                   <table className={myStyle.table}>
                     <tr>
-                      <td><b>Bairro</b></td>
+                      <td><b>Endereço</b></td>
                       <td><b>Cep</b></td>
-                      <td><b>Complemento</b></td>
-                      <td><b>DDD</b></td>
-                      <td><b>GIA</b></td>
-                      <td><b>IBGE</b></td>
                       <td><b>Localidade</b></td>
-                      <td><b>Logradouro</b></td>
-                      <td><b>SIAFI</b></td>
                       <td><b>UF</b></td>
                     </tr>
                     <tr>
-                      <td><b>{enderecoPrincipal.bairro}</b></td>
+                      <td>
+                        <b>{enderecoPrincipal.logradouro}</b> - <b>{enderecoPrincipal.bairro}</b>
+                      </td>
                       <td><b>{enderecoPrincipal.cep}</b></td>
-                      <td><b>{enderecoPrincipal.complemento}</b></td>
-                      <td><b>{enderecoPrincipal.ddd}</b></td>
-                      <td><b>{enderecoPrincipal.gia}</b></td>
-                      <td><b>{enderecoPrincipal.ibge}</b></td>
                       <td><b>{enderecoPrincipal.localidade}</b></td>
-                      <td><b>{enderecoPrincipal.logradouro}</b></td>
-                      <td><b>{enderecoPrincipal.siafi}</b></td>
                       <td><b>{enderecoPrincipal.uf}</b></td>
                     </tr>
                   </table>
@@ -93,8 +86,55 @@ function MapPage() {
                 </div>
               }
             </div>
-            <div className={myStyle.childrenLeftInputsDois}>2</div>
-            <div className={myStyle.childrenLeftButtonDois}>3</div>
+            <br />
+            <div className={myStyle.childrenLeftTitleDois}>
+              {
+                <div className={myStyle.containerTable}>
+                  <table className={myStyle.table}>
+                    <tr>
+                      <td><b>Endereço</b></td>
+                      <td><b>Cep</b></td>
+                      <td><b>Localidade</b></td>
+                      <td><b>UF</b></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>{enderecoSecundario.logradouro}</b> - <b>{enderecoSecundario.bairro}</b>
+                      </td>
+                      <td><b>{enderecoSecundario.cep}</b></td>
+                      <td><b>{enderecoSecundario.localidade}</b></td>
+                      <td><b>{enderecoSecundario.uf}</b></td>
+                    </tr>
+                  </table>
+                  
+                </div>
+              }
+            </div>
+            <br />
+            <div className={myStyle.childrenLeftTitleDois}>
+              {
+                <div className={myStyle.containerTable}>
+                  <table className={myStyle.table}>
+                    <tr>
+                      <td><b>Endereço</b></td>
+                      <td><b>Cep</b></td>
+                      <td><b>Localidade</b></td>
+                      <td><b>UF</b></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <b>{terceiroEndereco.logradouro}</b> - <b>{terceiroEndereco.bairro}</b>
+                      </td>
+                      <td><b>{terceiroEndereco.cep}</b></td>
+                      <td><b>{terceiroEndereco.localidade}</b></td>
+                      <td><b>{terceiroEndereco.uf}</b></td>
+                    </tr>
+                  </table>
+                  
+                </div>
+              }
+            </div>
+            
           </div>
         </div>
 
@@ -110,8 +150,10 @@ function MapPage() {
                 position={position}
                 options={{
                   label: {
-                    text: "Possição Teste",
-                    className: myStyle.mapMaker,
+                    text: `${txtMaker}`,
+                    className: "mapMaker" ,
+                    fontWeight: '900',
+                    fontSize: "12px"
                   }
                 }}/>
               </GoogleMap>
@@ -154,35 +196,38 @@ function MapPage() {
       const dataEndereco1 = await endereo1.json();  
     
       if(dataEndereco1.length > 0){
-          console.log("dataEndereco1 ::> ",dataEndereco1);
           const localidadePrinsipal = await fetch(`https://viacep.com.br/ws/${vl}/json/`)
           const data = await localidadePrinsipal.json();
           setEnderecoPrincipal(data);
-          setLat(dataEndereco1[0].lat);
-          setLng(dataEndereco1[0].lon);
-          console.log('lat >', lat);
-          console.log('lng >', lng);
+          setPosition({lat:parseFloat(dataEndereco1[0].lat),lng:parseFloat(dataEndereco1[0].lon)});
+          setTxtMaker(`${data.logradouro} - ${data.bairro}`);
       }else{
         alert("Endereço 1 não encontrado favor informar um CEP valido")
         return;
       }
     }
+
     async function getEnderecoDois(vl){
-      const endereo1 = await fetch(`https://nominatim.openstreetmap.org/search.php?postalcode=${vl}&format=jsonv2`);
-      const dataEndereco1 = await endereo1.json();  
+      const endereo2 = await fetch(`https://nominatim.openstreetmap.org/search.php?postalcode=${vl}&format=jsonv2`);
+      const dataEndereco2 = await endereo2.json();  
     
-      if(dataEndereco1.length > 0){
-          console.log("dataEndereco1 ::> ",dataEndereco1[0].display_name);
+      if(dataEndereco2.length > 0){
+        const localidade2 = await fetch(`https://viacep.com.br/ws/${vl}/json/`)
+        const data = await localidade2.json();
+        setEnderecoSecundario(data);
+        // setPosition({lat:parseFloat(dataEndereco1[0].lat),lng:parseFloat(dataEndereco1[0].lon)});
       }else{
         alert("Endereço 2 não encontrado favor informar um CEP valido")
       }
     }
     async function getEnderecoTreis(vl){
-      const endereo1 = await fetch(`https://nominatim.openstreetmap.org/search.php?postalcode=${vl}&format=jsonv2`);
-      const dataEndereco1 = await endereo1.json();  
+      const endereo3 = await fetch(`https://nominatim.openstreetmap.org/search.php?postalcode=${vl}&format=jsonv2`);
+      const dataEndereco3 = await endereo3.json();  
     
-      if(dataEndereco1.length > 0){
-          console.log("dataEndereco1 ::> ",dataEndereco1[0].display_name);
+      if(dataEndereco3.length > 0){
+        const localidade3 = await fetch(`https://viacep.com.br/ws/${vl}/json/`)
+        const data = await localidade3.json();
+        setTerceiroEndereco(data);
       }else{
         alert("Endereço 3 não encontrado favor informar um CEP valido")
       }
